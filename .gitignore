@@ -6,3 +6,4 @@
 /vendor/
 Vagrantfile
 strap.sh
+/log/

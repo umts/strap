@@ -9,6 +9,9 @@ gem "unicorn"
 
 group :development do
   gem "awesome_print"
+  gem "capistrano"
+  gem "capistrano-bundler"
+  gem "capistrano-passenger"
   gem "foreman"
   gem "guard"
   gem "guard-process"
