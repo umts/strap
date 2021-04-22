@@ -1,0 +1,63 @@
+name: GitHub Actions CI
+on:
+  push:
+    branches: master
+  pull_request: []
+jobs:
+  tests:
+    runs-on: macOS-11.0
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@main
+
+      - run: brew test-bot --only-cleanup-before
+
+      - name: Cleanup macOS
+        run: |
+          sudo rm -rf /usr/local/bin/brew /usr/local/.??* \
+                      /usr/local/Homebrew \
+                      /Applications/Xcode.app /usr/local/Caskroom \
+                      /Library/Developer/CommandLineTools
+
+      - name: Use newer Xcode
+        run: sudo xcode-select --switch /Applications/Xcode_12.2.app/Contents/Developer
+
+      - run: bin/strap.sh
+        env:
+          STRAP_CI: 1
+          STRAP_DEBUG: 1
+
+      - name: Rerun bin/strap.sh
+        run: bin/strap.sh
+        env:
+          STRAP_CI: 1
+
+      - run: brew config
+
+      - run: brew doctor
+
+      - name: Get Ruby version
+        run: echo "::set-output name=RUBY_VERSION::$(cat .ruby-version)"
+        id: ruby_version
+
+      - name: Install Ruby dependencies
+        run: brew install gmp openssl@1.1 libyaml
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@master
+        with:
+          ruby-version: "${{ steps.ruby_version.outputs.RUBY_VERSION }}"
+
+      - run: script/bootstrap
+
+      - run: script/cibuild
+
+      - run: brew install --build-from-source --formula libfaketime
+
+      - run: brew install --cask orka
+
+      - run: brew install --formula shellcheck
+
+      - run: shellcheck bin/strap.sh
+
+      - run: bundle exec rubocop
