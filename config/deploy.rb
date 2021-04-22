@@ -1,9 +1,9 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.11.0"
+lock '~> 3.16'
 
-set :application, "strap"
+set :application, 'strap'
 
-set :repo_url, "https://github.com/umts/strap.git"
+set :repo_url, 'https://github.com/umts/strap.git'
 set :branch, :master
 
 set :keep_releases, 5
