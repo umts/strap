@@ -11,7 +11,7 @@ gem "sinatra"
 gem "unicorn"
 
 group :development do
-  gem "capistrano"
+  gem "capistrano", '~> 3.16'
   gem "capistrano-bundler"
   gem "capistrano-passenger"
   gem "foreman"
