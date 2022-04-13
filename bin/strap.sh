@@ -74,6 +74,11 @@ sudo_init() {
     return
   fi
 
+  # If TouchID for sudo is setup: use that instead.
+  if grep -q pam_tid /etc/pam.d/sudo; then
+    return
+  fi
+
   local SUDO_PASSWORD SUDO_PASSWORD_SCRIPT
 
   if ! sudo --validate --non-interactive &>/dev/null; then
@@ -152,14 +157,14 @@ caffeinate -s -w $$ &
 
 # Set some basic security settings.
 logn "Configuring security settings:"
-defaults write com.apple.Safari \
+sudo_askpass defaults write com.apple.Safari \
   com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled \
   -bool false
-defaults write com.apple.Safari \
+sudo_askpass defaults write com.apple.Safari \
   com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles \
   -bool false
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
+sudo_askpass defaults write com.apple.screensaver askForPassword -int 1
+sudo_askpass defaults write com.apple.screensaver askForPasswordDelay -int 0
 sudo_askpass defaults write /Library/Preferences/com.apple.alf globalstate -int 1
 sudo_askpass launchctl load /System/Library/LaunchDaemons/com.apple.alf.agent.plist 2>/dev/null
 
@@ -254,17 +259,19 @@ fi
 # Setup GitHub HTTPS credentials.
 if git credential-osxkeychain 2>&1 | grep $Q "git.credential-osxkeychain"
 then
-  if [ "$(git config --global credential.helper)" != "osxkeychain" ]
+  # Actually execute the credential in case it's a wrapper script for credential-osxkeychain
+  if git "credential-$(git config --global credential.helper 2>/dev/null)" 2>&1 \
+     | grep -v $Q "git.credential-osxkeychain"
   then
     git config --global credential.helper osxkeychain
   fi
 
   if [ -n "$STRAP_GITHUB_USER" ] && [ -n "$STRAP_GITHUB_TOKEN" ]
   then
-    printf "protocol=https\\nhost=github.com\\n" | git credential-osxkeychain erase
+    printf "protocol=https\\nhost=github.com\\n" | git credential reject
     printf "protocol=https\\nhost=github.com\\nusername=%s\\npassword=%s\\n" \
           "$STRAP_GITHUB_USER" "$STRAP_GITHUB_TOKEN" \
-          | git credential-osxkeychain store
+          | git credential approve
   fi
 fi
 logk
@@ -290,8 +297,8 @@ then
 fi
 (
   cd "$HOMEBREW_PREFIX"
-  sudo_askpass mkdir -p               Cellar Frameworks bin etc include lib opt sbin share var
-  sudo_askpass chown -R "$USER:admin" Cellar Frameworks bin etc include lib opt sbin share var
+  sudo_askpass mkdir -p               Cellar Caskroom Frameworks bin etc include lib opt sbin share var
+  sudo_askpass chown    "$USER:admin" Cellar Caskroom Frameworks bin etc include lib opt sbin share var
 )
 
 [ -d "$HOMEBREW_REPOSITORY" ] || sudo_askpass mkdir -p "$HOMEBREW_REPOSITORY"

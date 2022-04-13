@@ -16,7 +16,7 @@ check_sudo_askpass() {
     # find all sudo
     grep --line-number "[^'\"]sudo " bin/strap.sh |
       # filter out comments
-      grep -Ev "^\d*:#" |
+      grep -Ev "^\d*: *#" |
       # filter out session resets
       grep -v "sudo --reset-timestamp" |
       # filter out password prompt
@@ -62,7 +62,6 @@ check_ruby_version Dockerfile
 unset RUBY_VERSION
 
 script/bootstrap
-bundle exec foreman check
 script/server &>/dev/null &
 SERVER_PID="$!"
 sleep 15
