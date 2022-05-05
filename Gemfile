@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-ruby IO.read(File.expand_path("#{File.dirname(__FILE__)}/.ruby-version")).strip
+ruby File.read(File.expand_path("#{File.dirname(__FILE__)}/.ruby-version")).strip
 
 gem "activesupport"
 gem "octokit"
@@ -14,7 +14,6 @@ group :development do
   gem "capistrano", '~> 3.16'
   gem "capistrano-bundler"
   gem "capistrano-passenger"
-  gem "foreman"
   gem "guard"
   gem "guard-process"
   gem "rubocop"
