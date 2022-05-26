@@ -1,7 +1,11 @@
-FROM ruby:2.7.4
+FROM ruby:3.1.2
 
 WORKDIR /app
 COPY . .
+
+RUN useradd --create-home strap
+
+USER strap
 
 RUN script/bootstrap
 
