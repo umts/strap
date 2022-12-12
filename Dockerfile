@@ -1,7 +1,10 @@
-FROM ruby:3.1.2
+FROM ruby:3.1.3
 
 WORKDIR /app
 COPY . .
+
+# Apply security updates.
+RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
 RUN useradd --create-home strap
 
