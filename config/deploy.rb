@@ -4,7 +4,7 @@ lock '~> 3.16'
 set :application, 'strap'
 
 set :repo_url, 'https://github.com/umts/strap.git'
-set :branch, :master
+set :branch, :main
 
 set :keep_releases, 5
 
