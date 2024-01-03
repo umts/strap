@@ -11,9 +11,11 @@ gem "sinatra"
 gem "unicorn"
 
 group :development do
+  gem "bcrypt_pbkdf"
   gem "capistrano", '~> 3.16'
   gem "capistrano-bundler"
   gem "capistrano-passenger"
+  gem "ed25519"
   gem "guard"
   gem "guard-process"
   gem "rubocop"
