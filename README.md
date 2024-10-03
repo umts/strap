@@ -62,7 +62,7 @@ Strap is also available as a Docker image on [Docker Hub (`mikemcquaid/strap`)](
 - `GITHUB_KEY`: the GitHub.com Application Client ID.
 - `GITHUB_SECRET`: the GitHub.com Application Client Secret.
 - `SESSION_SECRET`: the secret used for cookie session storage.
-- `WEB_CONCURRENCY`: the number of Unicorn (web server) processes to run (defaults to 3).
+- `WEB_CONCURRENCY`: the number of Puma (web server) threads to run (defaults to 3).
 - `STRAP_ISSUES_URL`: the URL where users should file issues (defaults to no URL).
 - `STRAP_BEFORE_INSTALL`: instructions displayed in the web application for users to follow before installing Strap (wrapped in `<li>` tags).
 - `CUSTOM_HOMEBREW_TAP`: an optional Homebrew tap to install with `brew tap`. Specify multiple arguments to brew tap by separating values with spaces.
@@ -79,4 +79,4 @@ Stable and in active development.
 ## License
 
 Licensed under the [MIT License](https://en.wikipedia.org/wiki/MIT_License).
-The full license text is available in [LICENSE.txt](https://github.com/MikeMcQuaid/strap/blob/master/LICENSE.txt).
+The full license text is available in [LICENSE.txt](https://github.com/MikeMcQuaid/strap/blob/main/LICENSE.txt).

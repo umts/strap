@@ -1,14 +1,17 @@
-ARG RUBY_VERSION
-FROM ruby:$RUBY_VERSION
+ARG RUBY_VERSION=3
+FROM ruby:$RUBY_VERSION-alpine
 
-# Apply security updates.
-RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
+RUN apk --update add build-base
 
-RUN useradd --create-home strap
+RUN adduser strap --disabled-password --gecos ""
 USER strap
 
 WORKDIR /app
 COPY . .
+
+ENV RACK_ENV="production" \
+  BUNDLE_DEPLOYMENT="1" \
+  BUNDLE_WITHOUT="development"
 
 RUN script/bootstrap
 
