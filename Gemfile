@@ -16,6 +16,7 @@ group :development do
   gem "capistrano", '~> 3.16'
   gem "capistrano-bundler"
   gem "capistrano-passenger"
+  gem "capistrano-pending"
   gem "ed25519"
   gem "guard"
   gem "guard-process"
