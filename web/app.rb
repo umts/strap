@@ -160,16 +160,16 @@ get '/strap.sh' do
   env_sub(content, set_variables, set: true)
   env_sub(content, unset_variables, set: false)
 
-  # Manually set X-Frame-Options because Rack::Protection won't set it on
-  # non-HTML files:
-  # https://github.com/sinatra/sinatra/blob/v2.0.7/rack-protection/lib/rack/protection/frame_options.rb#L32
-  headers['X-Frame-Options'] = 'DENY'
   content_type = if params['text']
                    'text/plain'
                  else
                    'application/octet-stream'
                  end
-  erb content, content_type: content_type
+
+  # Manually set X-Frame-Options because Rack::Protection won't set it on
+  # non-HTML files:
+  # https://github.com/sinatra/sinatra/blob/v2.0.7/rack-protection/lib/rack/protection/frame_options.rb#L32
+  [200, { "X-Frame-Options" => "DENY", "Content-Type" => content_type }, content.lines]
 end
 
 private
