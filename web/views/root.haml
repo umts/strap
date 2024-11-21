@@ -9,18 +9,18 @@
   - if @authorized
     %li You authorized Strap on Github ✅
     %li
-      %a.btn.btn-outline-primary.btn-sm{href: "/strap.sh"}
+      %a.btn.btn-outline-primary.btn-sm{ href: '/strap.sh' }
         Download the
         %code strap.sh
         script
       that's been customized for your GitHub user (or&#32;
-      %a{href: "/strap.sh?text=1"}> view it in your browser
+      %a{ href: '/strap.sh?text=1' }> view it in your browser
       ).
   - else
     %li
-      %form{action: "/auth/github", method: "post"}
-        %input{name: "authenticity_token", type: "hidden", value: @csrf_token}
-        %button.btn.btn-outline-primary.btn-sm{type: "submit"}
+      %form{ action: '/auth/github', method: 'post' }
+        %input{ name: 'authenticity_token', type: 'hidden', value: @csrf_token }
+        %button.btn.btn-outline-primary.btn-sm{ type: 'submit' }
           Authorize Strap on GitHub
         which will prompt for access to your email, public and private
         repositories; you'll need to provide access to any organizations whose
@@ -33,7 +33,7 @@
       Download the
       %code strap.sh
       script that's been customized for your GitHub user (or&#32;
-      %a{href: "/strap.sh?text=1"}> view the uncustomised version in your browser
+      %a{ href: '/strap.sh?text=1' }> view the uncustomised version in your browser
       ).
   %li
     Run Strap in Terminal.app with&#32;
@@ -45,7 +45,7 @@
     and
     - if @strap_issues_url
       file an issue at
-      %a{href: "#{@strap_issues_url}"}= @strap_issues_url
+      %a{ href: @strap_issues_url }= @strap_issues_url
     - else
       try to debug it yourself.
   %li
