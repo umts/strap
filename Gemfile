@@ -6,6 +6,8 @@ ruby file: '.ruby-version'
 
 gem 'activesupport'
 gem 'faraday-retry'
+gem 'haml'
+gem 'html2haml'
 gem 'octokit'
 gem 'omniauth-github'
 gem 'puma'
