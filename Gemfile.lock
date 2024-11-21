@@ -41,6 +41,7 @@ GEM
       net-http
     faraday-retry (2.2.1)
       faraday (~> 2.0)
+    ffi (1.17.0-arm64-darwin)
     ffi (1.17.0-x86_64-linux-gnu)
     formatador (1.1.0)
     guard (2.18.1)
@@ -175,6 +176,7 @@ GEM
     version_gem (1.1.4)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
