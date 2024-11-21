@@ -1,6 +1,55 @@
 <p class="lead">
   Strap is a script to bootstrap a minimal macOS development system.
-  This does not assume you're doing Ruby/Rails/web development but installs the minimal set of software
-  every macOS developer will want.
+  This does not assume you're doing Ruby/Rails/web development but installs the
+  minimal set of software every macOS developer will want.
 </p>
-<%= @text %>
+<h2>To Strap Your System:</h2>
+<ol>
+  <% if @strap_before_install %>
+    <li><@= @strap_before_install @></li>
+  <% end %>
+  <% if @authorized %>
+    <li>You authorized Strap on Github ✅</li>
+    <li>
+      <a href="/strap.sh" class="btn btn-outline-primary btn-sm">
+        Download the <code>strap.sh</code> script
+      </a>
+      that's been customized for your GitHub user (or
+      <a href="/strap.sh?text=1">view it in your browser</a>).
+    </li>
+  <% else %>
+    <li>
+      <form method="post" action="/auth/github">
+        <input type="hidden" name="authenticity_token" value="<%= @csrf_token %>">
+        <button type="submit" class="btn btn-outline-primary btn-sm">
+          Authorize Strap on GitHub
+        </button>
+      </form>
+      which will prompt for access to your email, public and private
+      repositories; you'll need to provide access to any organizations whose
+      repositories you need to be able to <code>git clone</code>. This is
+      used to add a GitHub access token to the <code>strap.sh</code> script
+      and is not otherwise used by this web application or stored anywhere.
+    </li>
+    <li>
+      Download the <code>strap.sh</code> script that's been customized for your GitHub user (or
+      <a href="/strap.sh?text=1">view the uncustomised version in your browser</a>).
+    </li>
+  <% end %>
+  <li> Run Strap in Terminal.app with <code>bash ~/Downloads/strap.sh</code>.</li>
+  <li>
+    If something failed, run Strap with more debugging output in
+    Terminal.app with <code>bash ~/Downloads/strap.sh --debug</code> and
+    <% if @strap_issues_url %>
+      file an issue at
+      <a href="<%= @strap_issues_url %>"><%= @strap_issues_url %></a>
+    <% else %>
+      try to debug it yourself.
+    <% end %>
+  </li>
+  <li>
+    Delete the customised <code>strap.sh</code> (it has a GitHub token
+    in it) in Terminal.app with <code>rm -f ~/Downloads/strap.sh</code>
+  </li>
+  <li>Install additional software with <code>brew install</code>.</li>
+</ol>
