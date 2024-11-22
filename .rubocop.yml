@@ -1,5 +1,4 @@
 AllCops:
-  TargetRubyVersion: 2.7
   NewCops: enable
   Exclude:
     - "**/vendor/**/*"
@@ -11,14 +10,5 @@ Layout/HashAlignment:
   EnforcedHashRocketStyle: table
   EnforcedColonStyle: table
 
-Layout/LineLength:
-  Max: 118
-
 Metrics/BlockLength:
   Enabled: false
-
-Style/TrailingCommaInArrayLiteral:
-  EnforcedStyleForMultiline: consistent_comma
-
-Style/TrailingCommaInHashLiteral:
-  EnforcedStyleForMultiline: consistent_comma
