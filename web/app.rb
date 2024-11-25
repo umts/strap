@@ -97,7 +97,7 @@ get '/strap.sh' do
   # Manually set X-Frame-Options because Rack::Protection won't set it on
   # non-HTML files:
   # https://github.com/sinatra/sinatra/blob/v2.0.7/rack-protection/lib/rack/protection/frame_options.rb#L32
-  [200, { "X-Frame-Options" => "DENY", "Content-Type" => content_type }, content.lines]
+  [200, { 'X-Frame-Options' => 'DENY', 'Content-Type' => content_type }, content.lines]
 end
 
 private
