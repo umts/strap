@@ -17,9 +17,6 @@ Layout/LineLength:
 Metrics/BlockLength:
   Enabled: false
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
-
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: consistent_comma
 
