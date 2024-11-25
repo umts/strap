@@ -14,6 +14,8 @@ set :deploy_to, "/srv/#{fetch :application}"
 
 set :log_level, :info
 
+set :capistrano_pending_role, :app
+
 before 'git:check', 'git:allow_shared'
 
 namespace :git do
