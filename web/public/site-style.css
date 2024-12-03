@@ -1,0 +1,41 @@
+#uma-topbar {
+  background: #881c1c;
+  padding: 8px 80px;
+}
+
+#umass-logo {
+  display: block;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  background: url(//umass.edu/identity/umass_banner/wordmark.svg) no-repeat;
+  background-size: contain;
+  height: 1.5em;
+  flex-grow: 1;
+}
+
+#search-umass input[type=submit] {
+  text-indent: 200%;
+  white-space: nowrap;
+  overflow: hidden;
+  background: url(//umass.edu/identity/umass_banner/search.svg) no-repeat;
+  background-size: contain;
+  height: 1.75em;
+  width: 1.75em;
+  box-shadow: none;
+  border: 0;
+}
+
+.github-corner {
+  fill: #fff;
+  color: #881c1c;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+}
+
+.github-corner .octo-cat {
+  fill: currentColor;
+}
