@@ -33,7 +33,7 @@ set :sessions, secret: SESSION_SECRET
 use OmniAuth::Builder do
   options = {
     # access is given for gh cli, packages, git client setup and repo checkouts
-    scope:        'user:email, repo, workflow, write:packages, read:packages, read:org, read:discussions',
+    scope: 'user:email, repo, workflow, write:packages, read:packages, read:org, read:discussions',
     allow_signup: false
   }
   options[:provider_ignores_state] = true if RACK_ENV == 'development'
@@ -47,7 +47,7 @@ get '/auth/github/callback' do
   auth = request.env['omniauth.auth']
 
   session[:auth] = {
-    'info'        => auth['info'],
+    'info' => auth['info'],
     'credentials' => auth['credentials']
   }
 
@@ -58,10 +58,10 @@ get '/' do
   before_install_list_item = "<li>#{STRAP_BEFORE_INSTALL}</li>" if STRAP_BEFORE_INSTALL
 
   debugging_text = if STRAP_ISSUES_URL.blank?
-    'try to debug it yourself'
-  else
-    %(file an issue at <a href="#{STRAP_ISSUES_URL}">#{STRAP_ISSUES_URL}</a>)
-  end
+                     'try to debug it yourself'
+                   else
+                     %(file an issue at <a href="#{STRAP_ISSUES_URL}">#{STRAP_ISSUES_URL}</a>)
+                   end
 
   download_button_text = 'Download the <code>strap.sh</code> script'
 
@@ -151,9 +151,9 @@ get '/strap.sh' do
   unset_variables[:CUSTOM_BREW_COMMAND] = CUSTOM_BREW_COMMAND if CUSTOM_BREW_COMMAND
 
   if auth
-    unset_variables.merge! STRAP_GIT_NAME:     auth['info']['name'],
-                           STRAP_GIT_EMAIL:    auth['info']['email'],
-                           STRAP_GITHUB_USER:  auth['info']['nickname'],
+    unset_variables.merge! STRAP_GIT_NAME: auth['info']['name'],
+                           STRAP_GIT_EMAIL: auth['info']['email'],
+                           STRAP_GITHUB_USER: auth['info']['nickname'],
                            STRAP_GITHUB_TOKEN: auth['credentials']['token']
   end
 
@@ -165,10 +165,10 @@ get '/strap.sh' do
   # https://github.com/sinatra/sinatra/blob/v2.0.7/rack-protection/lib/rack/protection/frame_options.rb#L32
   headers['X-Frame-Options'] = 'DENY'
   content_type = if params['text']
-    'text/plain'
-  else
-    'application/octet-stream'
-  end
+                   'text/plain'
+                 else
+                   'application/octet-stream'
+                 end
   erb content, content_type: content_type
 end
 
@@ -179,10 +179,10 @@ def env_sub(content, variables, set:)
     next if value.blank?
 
     regex = if set
-      /^#{key}='.*'$/
-    else
-      /^# #{key}=$/
-    end
+              /^#{key}='.*'$/
+            else
+              /^# #{key}=$/
+            end
     escaped_value = value.gsub("'", "\\\\\\\\'")
     content.gsub!(regex, "#{key}='#{escaped_value}'")
   end
