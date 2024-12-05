@@ -336,7 +336,7 @@ if [ -z "$HOMEBREW_PREFIX" ] || [ -z "$HOMEBREW_REPOSITORY" ]; then
   if [[ $UNAME_MACHINE == "arm64" ]]; then
     HOMEBREW_PREFIX="/opt/homebrew"
     HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}"
-    echo "export PATH=/opt/homebrew/bin:$PATH" >> ~/.zshrc
+    echo "export PATH=/opt/homebrew/bin:$PATH" >>~/.zshrc
   else
     HOMEBREW_PREFIX="/usr/local"
     HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
