@@ -173,8 +173,9 @@ GEM
       version_gem (~> 1.1, >= 1.1.1)
     spoon (0.0.6)
       ffi
-    sshkit (1.23.2)
+    sshkit (1.24.0)
       base64
+      logger
       net-scp (>= 1.1.2)
       net-sftp (>= 2.1.2)
       net-ssh (>= 2.8.0)
