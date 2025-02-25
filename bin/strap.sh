@@ -460,4 +460,4 @@ fi
 run_dotfile_scripts script/strap-after-setup
 
 STRAP_SUCCESS="1"
-log "Your system is now Strap'd! You'll need to reopen your shell to access Homebrew."
+log "Your system is now Strap'd! You'll need to reopen your shell to access Homebrew, or run 'source ~/.zshrc'"
