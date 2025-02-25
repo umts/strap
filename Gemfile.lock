@@ -190,7 +190,7 @@ GEM
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
     uri (1.0.2)
-    version_gem (1.1.5)
+    version_gem (1.1.6)
 
 PLATFORMS
   arm64-darwin
