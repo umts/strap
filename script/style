@@ -81,6 +81,14 @@ ruby_style() {
   bundle exec rubocop --format quiet ${rubocop_args-}
 }
 
+haml_style() {
+  if [[ -n ${STYLE_FIX-} ]]; then
+    local haml_lint_args="--auto-correct"
+  fi
+
+  bundle exec haml-lint ${haml_lint_args-}
+}
+
 script/bootstrap
 
 sudo_askpass_style
@@ -90,3 +98,5 @@ ruby_version_style Gemfile.lock
 shell_style bin/strap.sh script/*
 
 ruby_style
+
+haml_style

@@ -62,7 +62,7 @@ get '/' do
   @authorized = session[:auth].present?
   @csrf_token = request.env['rack.session']['csrf']
 
-  erb :root
+  haml :root
 end
 
 get '/strap.sh' do
