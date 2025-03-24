@@ -6,6 +6,7 @@ ruby file: '.ruby-version'
 
 gem 'activesupport'
 gem 'faraday-retry'
+gem 'haml'
 gem 'octokit'
 gem 'omniauth-github'
 gem 'puma'
@@ -20,5 +21,6 @@ group :development do
   gem 'ed25519'
   gem 'guard'
   gem 'guard-process'
+  gem 'haml_lint'
   gem 'rubocop'
 end

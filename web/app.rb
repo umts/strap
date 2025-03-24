@@ -55,86 +55,14 @@ get '/auth/github/callback' do
 end
 
 get '/' do
-  before_install_list_item = "<li>#{STRAP_BEFORE_INSTALL}</li>" if STRAP_BEFORE_INSTALL
-
-  debugging_text = if STRAP_ISSUES_URL.blank?
-                     'try to debug it yourself'
-                   else
-                     %(file an issue at <a href="#{STRAP_ISSUES_URL}">#{STRAP_ISSUES_URL}</a>)
-                   end
-
-  download_button_text = 'Download the <code>strap.sh</code> script'
-
-  if session[:auth].present?
-    login_step = 'You authorized Strap on GitHub ✅'
-    download_button_or_text = <<~HTML
-      <a href="/strap.sh" class="btn btn-outline-primary btn-sm">
-        #{download_button_text}
-      </a>
-    HTML
-    view_link_text = 'view it in your browser'
-  else
-    csrf = request.env['rack.session']['csrf']
-    login_step = <<~HTML
-      <form method="post" action="/auth/github">
-        <input type="hidden" name="authenticity_token" value="#{csrf}">
-        <button type="submit" class="btn btn-outline-primary btn-sm">
-          Authorize Strap on GitHub
-        </button>
-        which will prompt for access to your email, public and private
-        repositories; you'll need to provide access to any organizations whose
-        repositories you need to be able to <code>git clone</code>. This is
-        used to add a GitHub access token to the <code>strap.sh</code> script
-        and is not otherwise used by this web application or stored
-        anywhere.
-      </form>
-    HTML
-    download_button_or_text = download_button_text
-    view_link_text = 'view the uncustomised version in your browser'
-  end
-
   @title = '👢 Strap'
-  @text = <<~HTML
-    To Strap your system:
-    <ol>
-      #{before_install_list_item}
 
-      <li>
-        #{login_step}
-      </li>
+  @strap_before_install = STRAP_BEFORE_INSTALL
+  @strap_issues_url = STRAP_ISSUES_URL
+  @authorized = session[:auth].present?
+  @csrf_token = request.env['rack.session']['csrf']
 
-      <li>
-        #{download_button_or_text}
-        that's been customised for your GitHub user (or
-        <a href="/strap.sh?text=1">
-          #{view_link_text}
-        </a>
-        first).
-      </li>
-
-      <li>
-        Run Strap in Terminal.app with <code>bash ~/Downloads/strap.sh</code>.
-      </li>
-
-      <li>
-        If something failed, run Strap with more debugging output in
-        Terminal.app with <code>bash ~/Downloads/strap.sh --debug</code> and
-        #{debugging_text}.
-      </li>
-
-      <li>
-        Delete the customised <code>strap.sh</code> (it has a GitHub token
-        in it) in Terminal.app with
-        <code>rm -f ~/Downloads/strap.sh</code>
-      </li>
-
-      <li>
-        Install additional software with
-        <code>brew install</code>.
-      </li>
-    </ol>
-  HTML
-  erb :root
+  haml :root
 end
 
 get '/strap.sh' do
@@ -160,16 +88,16 @@ get '/strap.sh' do
   env_sub(content, set_variables, set: true)
   env_sub(content, unset_variables, set: false)
 
-  # Manually set X-Frame-Options because Rack::Protection won't set it on
-  # non-HTML files:
-  # https://github.com/sinatra/sinatra/blob/v2.0.7/rack-protection/lib/rack/protection/frame_options.rb#L32
-  headers['X-Frame-Options'] = 'DENY'
   content_type = if params['text']
                    'text/plain'
                  else
                    'application/octet-stream'
                  end
-  erb content, content_type: content_type
+
+  # Manually set X-Frame-Options because Rack::Protection won't set it on
+  # non-HTML files:
+  # https://github.com/sinatra/sinatra/blob/v2.0.7/rack-protection/lib/rack/protection/frame_options.rb#L32
+  [200, { 'X-Frame-Options' => 'DENY', 'Content-Type' => content_type }, content.lines]
 end
 
 private
