@@ -1,0 +1,48 @@
+!!!
+%html{ lang: 'en' }
+  %head
+    %meta{ content: 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type' }
+    %meta{ charset: 'utf-8' }
+    %meta{ content: 'IE=edge', 'http-equiv': 'X-UA-Compatible' }
+    %meta{ content: 'width=device-width, initial-scale=1', name: 'viewport' }
+    %link{ href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css', rel: 'stylesheet' }
+    %link{ href: '/site-style.css', rel: 'stylesheet' }
+    %title #{@title} | Transportation Services IT | UMass Amherst
+  %body
+    %header
+      %nav.navbar.text-light#uma-topbar
+        %a.navbar-brand#umass-logo{ href: 'https://www.umass.edu/' } UMass Amherst
+        %form.form-inline#search-umass{ action: 'https://www.umass.edu/search', method: 'get' }
+          %label.sr-only{ for: 'q' } Search UMass
+          %input{ maxlength: '256', name: 'q', placeholder: 'Search UMass', size: '15', type: 'text' }
+          %input{ type: 'submit', value: 'Google Search' }
+      %nav.navbar.navbar-expand-lg.pt-4.pb-2.mb-4
+        %h1.container.display-1.text-white= @title
+    .container!= yield
+    %a{ 'aria-label': 'View source on GitHub', href: 'https://github.com/umts/strap' }
+      / Adapted from https://github.com/tholman/github-corners
+      %svg.github-corner{ 'aria-hidden': 'true', viewbox: '0 0 250 250', xmlns: 'http://www.w3.org/2000/svg' }
+        %path{ d: 'M0 0l115 115h15l12 27 108 108V0z' }
+        :ruby
+          path1 = 'M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16'
+          path2 = <<~PATH
+            M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0
+            5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30
+            10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z
+          PATH
+        %path.octo-cat{ d: path1 }
+        %path.octo-cat{ d: path2 }
+    %footer.fixed-bottom
+      %nav.navbar.text-white
+        %span.navbar-brand 👢
+        %span
+          Made with ❤️ by 
+          %a.text-white{ href: 'https://mikemcquaid.com' } Mike McQuaid
+      %nav.navbar.bg-dark.text-light.text-center.justify-content-center
+        %span
+          ©#{Time.now.year}
+          %a.text-light{ href: 'https://www.umass.edu/' } University of Massachusetts Amherst
+          •
+          %a.text-light{ href: 'https://www.umass.edu/site-policies' } Site Policies
+          •
+          %a.text-light{ href: 'mailto:transit-it@admin.umass.edu' } Site Contact
