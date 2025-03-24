@@ -1,62 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/site-style.css">
-    <title><%= @title %> | Transportation Services IT | UMass Amherst</title>
-  </head>
-  <body>
-    <header>
-      <nav id="uma-topbar" class="navbar text-light">
-        <a class="navbar-brand" id="umass-logo" href="https://www.umass.edu/">UMass Amherst</a>
-        <form class="form-inline" id="search-umass" action="https://www.umass.edu/search" method="get">
-          <label for="q" class="sr-only">Search UMass</label>
-          <input placeholder="Search UMass" name="q" size="15" maxlength="256" type="text">
-          <input value="Google Search" type="submit">
-        </form>
-      </nav>
-      <nav class="navbar navbar-expand-lg pt-4 pb-2 mb-4" style="background: #5b7f95;">
-        <h1 class="container display-1 text-white"><%= @title %></h1>
-      </nav>
-    </header>
-    <div class="container">
-      <p class="lead">
-        Strap is a script to bootstrap a minimal macOS development system.
-        This does not assume you're doing Ruby/Rails/web development but installs the minimal set of software
-        every macOS developer will want.
-      </p>
-      <%= @text %>
-    </div>
-
-    <a href="https://github.com/umts/strap" aria-label="View source on GitHub">
-      <!-- Adapted from https://github.com/tholman/github-corners -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250" class="github-corner" aria-hidden="true">
-        <path d="M0 0l115 115h15l12 27 108 108V0z"/>
-        <path class="octo-cat"
-              d="M128 109c-15-9-9-19-9-19 3-7 2-11 2-11-1-7 3-2 3-2 4 5 2 11 2 11-3 10 5 15 9 16" />
-        <path class="octo-cat"
-              d="M115 115s4 2 5 0l14-14c3-2 6-3 8-3-8-11-15-24 2-41 5-5 10-7 16-7 1-2 3-7 12-11 0 0
-                 5 3 7 16 4 2 8 5 12 9s7 8 9 12c14 3 17 7 17 7-4 8-9 11-11 11 0 6-2 11-7 16-16 16-30
-                 10-41 2 0 3-1 7-5 11l-12 11c-1 1 1 5 1 5z"/>
-      </svg>
-    </a>
-
-    <footer class="fixed-bottom">
-      <nav class="navbar text-white" style="background: #5b7f95;">
-        <span class="navbar-brand">👢</span>
-        <span>Made with ❤️ by&nbsp;<a class="text-white" href="https://mikemcquaid.com">Mike McQuaid</a> and Transit IT</span>
-      </nav>
-      <nav class="navbar bg-dark text-light text-center" style="justify-content: center;">
-        <span>
-          &copy;<%= Time.now.year %>
-          <a class="text-light" href="https://www.umass.edu/">University of Massachusetts Amherst</a> &bull;
-          <a class="text-light" href="https://www.umass.edu/site-policies">Site Policies</a> &bull;
-          <a class="text-light" href="mailto:transit-it@admin.umass.edu">Site Contact</a>
-        </span>
-      </nav>
-    </footer>
-  </body>
-</html>
+<p class="lead">
+  Strap is a script to bootstrap a minimal macOS development system.
+  This does not assume you're doing Ruby/Rails/web development but installs the
+  minimal set of software every macOS developer will want.
+</p>
+<h2>To Strap Your System:</h2>
+<ol>
+  <% if @strap_before_install %>
+    <li><@= @strap_before_install @></li>
+  <% end %>
+  <% if @authorized %>
+    <li>You authorized Strap on Github ✅</li>
+    <li>
+      <a href="/strap.sh" class="btn btn-outline-primary btn-sm">
+        Download the <code>strap.sh</code> script
+      </a>
+      that's been customized for your GitHub user (or
+      <a href="/strap.sh?text=1">view it in your browser</a>).
+    </li>
+  <% else %>
+    <li>
+      <form method="post" action="/auth/github">
+        <input type="hidden" name="authenticity_token" value="<%= @csrf_token %>">
+        <button type="submit" class="btn btn-outline-primary btn-sm">
+          Authorize Strap on GitHub
+        </button>
+        which will prompt for access to your email, public and private
+        repositories; you'll need to provide access to any organizations whose
+        repositories you need to be able to <code>git clone</code>. This is
+        used to add a GitHub access token to the <code>strap.sh</code> script
+        and is not otherwise used by this web application or stored anywhere.
+      </form>
+    </li>
+    <li>
+      Download the <code>strap.sh</code> script that's been customized for your GitHub user (or
+      <a href="/strap.sh?text=1">view the uncustomised version in your browser</a>).
+    </li>
+  <% end %>
+  <li> Run Strap in Terminal.app with <code>bash ~/Downloads/strap.sh</code>.</li>
+  <li>
+    If something failed, run Strap with more debugging output in
+    Terminal.app with <code>bash ~/Downloads/strap.sh --debug</code> and
+    <% if @strap_issues_url %>
+      file an issue at
+      <a href="<%= @strap_issues_url %>"><%= @strap_issues_url %></a>
+    <% else %>
+      try to debug it yourself.
+    <% end %>
+  </li>
+  <li>
+    Delete the customised <code>strap.sh</code> (it has a GitHub token
+    in it) in Terminal.app with <code>rm -f ~/Downloads/strap.sh</code>
+  </li>
+  <li>Install additional software with <code>brew install</code>.</li>
+</ol>
