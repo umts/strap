@@ -336,6 +336,7 @@ if [ -z "$HOMEBREW_PREFIX" ] || [ -z "$HOMEBREW_REPOSITORY" ]; then
   if [[ $UNAME_MACHINE == "arm64" ]]; then
     HOMEBREW_PREFIX="/opt/homebrew"
     HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}"
+    echo "export PATH=/opt/homebrew/bin:$PATH" >>~/.zshrc
   else
     HOMEBREW_PREFIX="/usr/local"
     HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
@@ -459,4 +460,4 @@ fi
 run_dotfile_scripts script/strap-after-setup
 
 STRAP_SUCCESS="1"
-log "Your system is now Strap'd!"
+log "Your system is now Strap'd! You'll need to reopen your shell to access Homebrew, or run 'source ~/.zshrc'"
