@@ -73,7 +73,7 @@ GEM
       temple (>= 0.8.2)
       thor
       tilt
-    haml_lint (0.61.1)
+    haml_lint (0.62.0)
       haml (>= 5.0)
       parallel (~> 1.10)
       rainbow
@@ -268,7 +268,7 @@ CHECKSUMS
   guard-compat (1.2.1) sha256=3ad21ab0070107f92edfd82610b5cdc2fb8e368851e72362ada9703443d646fe
   guard-process (1.2.1) sha256=a90cd4139834c8e1997cea5794d141e88f3f00230caca15220ea403caf043ee4
   haml (6.3.0) sha256=8e6eb87d869639e348852009e74a2a1663d79663ed7e7dbcb38beb1f12bcdd97
-  haml_lint (0.61.1) sha256=9b46c5f14b924178533a1820b3bdde2879338311e9d078c9cc2132d2437f259e
+  haml_lint (0.62.0) sha256=e5262eee682848b9bd89cd3d20eb0efdaf3126762ad93e6707c9858eb3abef61
   hashie (5.0.0) sha256=9d6c4e51f2a36d4616cbc8a322d619a162d8f42815a792596039fc95595603da
   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
   json (2.10.2) sha256=34e0eada93022b2a0a3345bb0b5efddb6e9ff5be7c48e409cfb54ff8a36a8b06
