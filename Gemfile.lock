@@ -45,7 +45,7 @@ GEM
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.4.0)
+    faraday-net_http (3.4.1)
       net-http (>= 0.5.0)
     faraday-retry (2.3.1)
       faraday (~> 2.0)
@@ -83,7 +83,7 @@ GEM
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     json (2.12.2)
-    jwt (2.10.1)
+    jwt (3.0.0)
       base64
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
@@ -258,7 +258,7 @@ CHECKSUMS
   drb (2.2.3) sha256=0b00d6fdb50995fe4a45dea13663493c841112e4068656854646f418fda13373
   ed25519 (1.4.0) sha256=16e97f5198689a154247169f3453ef4cfd3f7a47481fde0ae33206cdfdcac506
   faraday (2.13.1) sha256=cc531eb5467e7d74d4517630fa96f1a7003647cbf20a9a3e067d098941217b75
-  faraday-net_http (3.4.0) sha256=a1f1e4cd6a2cf21599c8221595e27582d9936819977bbd4089a601f24c64e54a
+  faraday-net_http (3.4.1) sha256=095757fae7872b94eac839c08a1a4b8d84fd91d6886cfbe75caa2143de64ab3b
   faraday-retry (2.3.1) sha256=4004faa21f41fc5360d359bc79889fc58fb7fae0ce93bfb737a784ac76805c03
   ffi (1.17.2-arm64-darwin) sha256=54dd9789be1d30157782b8de42d8f887a3c3c345293b57ffb6b45b4d1165f813
   ffi (1.17.2-x86-linux-gnu) sha256=95d8f9ebea23c39888e2ab85a02c98f54acb2f4e79b829250d7267ce741dc7b0
@@ -273,7 +273,7 @@ CHECKSUMS
   hashie (5.0.0) sha256=9d6c4e51f2a36d4616cbc8a322d619a162d8f42815a792596039fc95595603da
   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
   json (2.12.2) sha256=ba94a48ad265605c8fa9a50a5892f3ba6a02661aa010f638211f3cb36f44abf4
-  jwt (2.10.1) sha256=e6424ae1d813f63e761a04d6284e10e7ec531d6f701917fadcd0d9b2deaf1cc5
+  jwt (3.0.0) sha256=a90dd08038e05a1d9832eff2fa9b74b93eaf2b25fa1ac3e8a39c9c8778884703
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
   listen (3.9.0) sha256=db9e4424e0e5834480385197c139cb6b0ae0ef28cc13310cfd1ca78377d59c67
