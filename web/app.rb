@@ -100,8 +100,6 @@ get '/strap.sh' do
   [200, { 'X-Frame-Options' => 'DENY', 'Content-Type' => content_type }, content.lines]
 end
 
-private
-
 def env_sub(content, variables, set:)
   variables.each do |key, value|
     next if value.blank?
