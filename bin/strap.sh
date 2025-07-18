@@ -250,6 +250,21 @@ else
   abort "Run 'sudo fdesetup enable -user \"$USER\"' to enable full-disk encryption."
 fi
 
+# Check and install any remaining software updates.
+logn "Checking for software updates:"
+if softwareupdate -l 2>&1 | grep $Q "No new software available."; then
+  logk
+else
+  echo
+  log "Installing software updates:"
+  if [ -z "$STRAP_CI" ]; then
+    sudo_askpass softwareupdate --install --all
+    logk
+  else
+    echo "SKIPPED (for CI)"
+  fi
+fi
+
 log "Running the homebrew installer"
 # Run the homebrew installer -- will also install XCode Commandline Utilities.
 export NONINTERACTIVE=1
@@ -290,22 +305,6 @@ if git credential-osxkeychain 2>&1 | grep $Q "git.credential-osxkeychain"; then
   fi
 fi
 logk
-
-# Check and install any remaining software updates.
-logn "Checking for software updates:"
-if softwareupdate -l 2>&1 | grep $Q "No new software available."; then
-  logk
-else
-  echo
-  log "Installing software updates:"
-  if [ -z "$STRAP_CI" ]; then
-    sudo_askpass softwareupdate --install --all
-    xcode_license
-    logk
-  else
-    echo "SKIPPED (for CI)"
-  fi
-fi
 
 # Setup dotfiles
 if [ -n "$STRAP_GITHUB_USER" ]; then
