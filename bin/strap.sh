@@ -252,6 +252,7 @@ fi
 
 log "Running the homebrew installer"
 # Run the homebrew installer -- will also install XCode Commandline Utilities.
+export NONINTERACTIVE=1
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Setup Git configuration.
