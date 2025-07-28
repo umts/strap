@@ -16,7 +16,7 @@ sudo_askpass() {
 
 cleanup() {
   set +e
-  sudo_askpass rm -rf "$CLT_PLACEHOLDER" "$SUDO_ASKPASS" "$SUDO_ASKPASS_DIR"
+  sudo_askpass rm -rf "$SUDO_ASKPASS" "$SUDO_ASKPASS_DIR"
   sudo --reset-timestamp
   if [ -z "$STRAP_SUCCESS" ]; then
     if [ -n "$STRAP_STEP" ]; then
@@ -250,46 +250,24 @@ else
   abort "Run 'sudo fdesetup enable -user \"$USER\"' to enable full-disk encryption."
 fi
 
-# Install the Xcode Command Line Tools.
-if ! [ -f "/Library/Developer/CommandLineTools/usr/bin/git" ]; then
-  log "Installing the Xcode Command Line Tools:"
-  CLT_PLACEHOLDER="/tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress"
-  sudo_askpass touch "$CLT_PLACEHOLDER"
-
-  CLT_PACKAGE=$(softwareupdate -l |
-    grep -B 1 "Command Line Tools" |
-    awk -F"*" '/^ *\*/ {print $2}' |
-    sed -e 's/^ *Label: //' -e 's/^ *//' |
-    sort -V |
-    tail -n1)
-  sudo_askpass softwareupdate -i "$CLT_PACKAGE"
-  sudo_askpass rm -f "$CLT_PLACEHOLDER"
-  if ! [ -f "/Library/Developer/CommandLineTools/usr/bin/git" ]; then
-    if [ -n "$STRAP_INTERACTIVE" ]; then
-      echo
-      logn "Requesting user install of Xcode Command Line Tools:"
-      xcode-select --install
-    else
-      echo
-      abort "Run 'xcode-select --install' to install the Xcode Command Line Tools."
-    fi
-  fi
+# Check and install any remaining software updates.
+logn "Checking for software updates:"
+if softwareupdate -l 2>&1 | grep $Q "No new software available."; then
   logk
+else
+  echo
+  log "Installing software updates:"
+  if [ -z "$STRAP_CI" ]; then
+    sudo_askpass softwareupdate --install --all
+    logk
+  else
+    echo "SKIPPED (for CI)"
+  fi
 fi
 
-# Check if the Xcode license is agreed to and agree if not.
-xcode_license() {
-  if /usr/bin/xcrun clang 2>&1 | grep $Q license; then
-    if [ -n "$STRAP_INTERACTIVE" ]; then
-      logn "Asking for Xcode license confirmation:"
-      sudo_askpass xcodebuild -license
-      logk
-    else
-      abort "Run 'sudo xcodebuild -license' to agree to the Xcode license."
-    fi
-  fi
-}
-xcode_license
+log "Running the homebrew installer"
+# Run the homebrew installer -- will also install XCode Commandline Utilities.
+/bin/bash -c "NONINTERACTIVE=1 $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Setup Git configuration.
 logn "Configuring Git:"
@@ -326,69 +304,6 @@ if git credential-osxkeychain 2>&1 | grep $Q "git.credential-osxkeychain"; then
   fi
 fi
 logk
-
-# Setup Homebrew directory and permissions.
-logn "Installing Homebrew:"
-HOMEBREW_PREFIX="$(brew --prefix 2>/dev/null || true)"
-HOMEBREW_REPOSITORY="$(brew --repository 2>/dev/null || true)"
-if [ -z "$HOMEBREW_PREFIX" ] || [ -z "$HOMEBREW_REPOSITORY" ]; then
-  UNAME_MACHINE="$(/usr/bin/uname -m)"
-  if [[ $UNAME_MACHINE == "arm64" ]]; then
-    HOMEBREW_PREFIX="/opt/homebrew"
-    HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}"
-  else
-    HOMEBREW_PREFIX="/usr/local"
-    HOMEBREW_REPOSITORY="${HOMEBREW_PREFIX}/Homebrew"
-  fi
-fi
-[ -d "$HOMEBREW_PREFIX" ] || sudo_askpass mkdir -p "$HOMEBREW_PREFIX"
-if [ "$HOMEBREW_PREFIX" = "/usr/local" ]; then
-  sudo_askpass chown "root:wheel" "$HOMEBREW_PREFIX" 2>/dev/null || true
-fi
-(
-  cd "$HOMEBREW_PREFIX"
-  sudo_askpass mkdir -p Cellar Caskroom Frameworks bin etc include lib opt sbin share var
-  sudo_askpass chown "$USER:admin" Cellar Caskroom Frameworks bin etc include lib opt sbin share var
-)
-
-[ -d "$HOMEBREW_REPOSITORY" ] || sudo_askpass mkdir -p "$HOMEBREW_REPOSITORY"
-sudo_askpass chown -R "$USER:admin" "$HOMEBREW_REPOSITORY"
-
-if [ $HOMEBREW_PREFIX != $HOMEBREW_REPOSITORY ]; then
-  ln -sf "$HOMEBREW_REPOSITORY/bin/brew" "$HOMEBREW_PREFIX/bin/brew"
-fi
-
-# Download Homebrew.
-export GIT_DIR="$HOMEBREW_REPOSITORY/.git" GIT_WORK_TREE="$HOMEBREW_REPOSITORY"
-git init $Q
-git config remote.origin.url "https://github.com/Homebrew/brew"
-git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-git fetch $Q --tags --force
-git reset $Q --hard origin/master
-unset GIT_DIR GIT_WORK_TREE
-logk
-
-# Update Homebrew.
-export PATH="$HOMEBREW_PREFIX/bin:$PATH"
-logn "Updating Homebrew:"
-brew update --quiet
-logk
-
-# Check and install any remaining software updates.
-logn "Checking for software updates:"
-if softwareupdate -l 2>&1 | grep $Q "No new software available."; then
-  logk
-else
-  echo
-  log "Installing software updates:"
-  if [ -z "$STRAP_CI" ]; then
-    sudo_askpass softwareupdate --install --all
-    xcode_license
-    logk
-  else
-    echo "SKIPPED (for CI)"
-  fi
-fi
 
 # Setup dotfiles
 if [ -n "$STRAP_GITHUB_USER" ]; then
