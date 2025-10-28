@@ -69,7 +69,7 @@ GEM
     guard-process (1.2.1)
       guard-compat (~> 1.2, >= 1.2.1)
       spoon (~> 0.0.1)
-    haml (6.3.0)
+    haml (7.0.0)
       temple (>= 0.8.2)
       thor
       tilt
@@ -271,7 +271,7 @@ CHECKSUMS
   guard (2.19.1) sha256=b8bc52694be3d8b26730280de7dcec7fe92ea1cff3414246fe96af3f23580f3d
   guard-compat (1.2.1) sha256=3ad21ab0070107f92edfd82610b5cdc2fb8e368851e72362ada9703443d646fe
   guard-process (1.2.1) sha256=a90cd4139834c8e1997cea5794d141e88f3f00230caca15220ea403caf043ee4
-  haml (6.3.0) sha256=8e6eb87d869639e348852009e74a2a1663d79663ed7e7dbcb38beb1f12bcdd97
+  haml (7.0.0) sha256=0b4e0a3a23e7b0bdff8544f2d3d0bbc9266d3782e8ae55b15916b3e94cef6c91
   haml_lint (0.66.0) sha256=4b5d7814f3d7152f7b4a766cf58e5bd037766b02461656d689cfd5c9d6b2c4ec
   hashie (5.0.0) sha256=9d6c4e51f2a36d4616cbc8a322d619a162d8f42815a792596039fc95595603da
   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
