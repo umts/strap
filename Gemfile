@@ -14,7 +14,7 @@ gem 'sinatra'
 
 group :development do
   gem 'bcrypt_pbkdf'
-  gem 'capistrano', '~> 3.19'
+  gem 'capistrano', '~> 3.20'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
   gem 'capistrano-pending'
