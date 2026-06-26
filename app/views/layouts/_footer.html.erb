@@ -7,4 +7,15 @@
     <%= strap_link_to "Mike McQuaid", "https://mikemcquaid.com", classes: "text-white hover:text-gray-200" %>
   </span>
 </nav>
+<nav class="text-white p-1 flex justify-center items-center gap-2 bg-zinc-900">
+  <% a_classes = "hover:text-gray-200 hover:underline" %>
+  <div>
+    &copy;<%= Date.current.year %>
+    <%= link_to "University of Massachusetts Amherst", "https://umass.edu/", class: a_classes %>
+  </div>
+  <div>&bull;</div>
+  <div><%= link_to "Site Policies", "https://www.umass.edu/site-policies", class: a_classes %></div>
+  <div>&bull;</div>
+  <div><%= mail_to "transit-it@admin.umass.edu", "Site Contact", class: a_classes %></div>
+</nav>
 </footer>
