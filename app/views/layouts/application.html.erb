@@ -16,11 +16,7 @@
       <%= yield %>
     </div>
 
-    <%= link_to "https://github.com/MikeMcQuaid/strap" do %>
-      <%= image_tag "fork-me-on-github-right-red.png",
-                    alt:   "Fork me on GitHub",
-                    class: "absolute top-0 right-0 border-0 w-36 h-36 object-contain" %>
-    <% end %>
+    <%= render "layouts/octo_corner" %>
 
     <%# Spacer to avoid bottom navbar overlapping. %>
     <div class="py-4 mb-4"></div>
