@@ -1,0 +1,41 @@
+<%# locals: () %>
+<header class="mb-6">
+  <nav class="bg-red-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-12">
+      <div class="flex flex-wrap items-center justify-between gap-4 py-3">
+        <%= link_to "https://umass.edu", class: "flex items-center" do %>
+          <%= image_tag "UMassAmherst_longform-reversed.svg",
+                        alt:   "University of Massachusetts Amherst",
+                        class: "hidden md:block h-[30px] w-auto" %>
+          <%= image_tag "UMassAmherst_shortform-reversed.svg",
+                        alt:   "UMass Amherst",
+                        class: "block md:hidden h-[30px] w-auto" %>
+        <% end %>
+        <ul class="flex flex-wrap items-center gap-1 sm:gap-2">
+          <% nav_classes = "block rounded px-3 py-2 text-white hover:bg-white/10 " \
+                           "focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60" %>
+          <li>
+            <%= link_to "Visit", "https://www.umass.edu/admissions/undergraduate-admissions/visit", class: nav_classes %>
+          </li>
+          <li>
+            <%= link_to "Apply", "https://www.umass.edu/admissions", class: nav_classes %>
+          </li>
+          <li>
+            <%= link_to "Give", "https://www.umass.edu/give", class: nav_classes %>
+          </li>
+          <li>
+            <%= link_to "https://www.umass.edu/search", class: nav_classes do %>
+              <span aria-hidden="true">&#x1F50D;</span>
+              <span class="sr-only">Search</span>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <nav class="pt-7 pb-7 bg-zinc-600">
+    <div class="max-w-6xl mx-auto px-4">
+      <h1 class="text-8xl font-light text-white leading-none mb-0">👢 Strap</h1>
+    </div>
+  </nav>
+</header>
