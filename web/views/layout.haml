@@ -16,7 +16,9 @@
           %input{ type: 'submit', value: 'Google Search' }
       %nav.navbar.navbar-expand-lg.pt-4.pb-2.mb-4
         %h1.container.display-1.text-white= @title
-    .container!= yield
+    .container
+      -# haml-lint:disable UnescapedHtml
+      != yield
     %a{ 'aria-label': 'View source on GitHub', href: 'https://github.com/umts/strap' }
       / Adapted from https://github.com/tholman/github-corners
       %svg.github-corner{ 'aria-hidden': 'true', viewbox: '0 0 250 250', xmlns: 'http://www.w3.org/2000/svg' }
