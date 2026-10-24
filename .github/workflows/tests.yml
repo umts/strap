@@ -60,7 +60,7 @@ jobs:
       - run: brew doctor
 
       - name: Install Ruby dependencies
-        run: brew install gmp openssl libyaml
+        run: brew install gmp openssl@3 libyaml
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
