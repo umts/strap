@@ -365,7 +365,7 @@ CHECKSUMS
   version_gem (1.1.17) sha256=70420b9675fbb77a7e7e7eb8ed6580dd4dd25be53b1454c1a79cc18f3c5a8dfd
 
 RUBY VERSION
-  ruby 3.4.12
+  ruby 4.0.10
 
 BUNDLED WITH
   4.0.23
